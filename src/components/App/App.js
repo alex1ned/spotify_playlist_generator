@@ -1,11 +1,9 @@
 import React from 'react';
 import './App.css';
 
-// Import components
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import PlayList from '../PlayList/PlayList';
-
 
 // ---------------- Delete later
 // const result1 = {
@@ -13,20 +11,6 @@ import PlayList from '../PlayList/PlayList';
 //   artist: 'Artist',
 //   album: 'Album',
 //   id: 1
-// };
-//
-// const result2 = {
-//   name: 'Name',
-//   artist: 'Artist',
-//   album: 'Album',
-//   id: 2
-// };
-//
-// const result3 = {
-//   name: 'Name',
-//   artist: 'Artist',
-//   album: 'Album',
-//   id: 3
 // };
 
 // const arrayResults = [result1, result2, result3];
