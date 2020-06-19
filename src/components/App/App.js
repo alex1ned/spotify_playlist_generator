@@ -5,25 +5,39 @@ import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import PlayList from '../PlayList/PlayList';
 
-// ---------------- Delete later
-// const result1 = {
-//   name: 'Name',
-//   artist: 'Artist',
-//   album: 'Album',
-//   id: 1
-// };
 
-// const arrayResults = [result1, result2, result3];
+// ---------------- Delete later (this is the searchResults Tracklist hardplugged)
+const result1 = {
+  name: 'Name1',
+  artist: 'Artist1',
+  album: 'Album1',
+  id: 1
+};
+
+const result2 = {
+  name: 'Name2',
+  artist: 'Artist2',
+  album: 'Album2',
+  id: 2
+};
+
+const result3 = {
+  name: 'Name3',
+  artist: 'Artist3',
+  album: 'Album3',
+  id: 3
+};
+
+const arrayResults = [result1, result2, result3];
 // ---------------- Delete later
+
 
 class App extends React.Component {
   constructor(props)
   {
     super(props);
     this.state = {
-      searchResults: [{name: 'Name1', artist: 'Artist1', album: 'Album1', id: 1},
-                      {name: 'Name2', artist: 'Artist2', album: 'Album2', id: 2},
-                      {name: 'Name3', artist: 'Artist3', album: 'Album3', id: 3}]
+      searchResults: arrayResults
     };
   }
 
@@ -36,7 +50,7 @@ class App extends React.Component {
           <SearchBar />
           <div className="App-playlist">
             <SearchResults searchResults={this.state.searchResults} />
-            <PlayList />
+            <PlayList searchResults={this.state.searchResults} />
           </div>
         </div>
       </div>
