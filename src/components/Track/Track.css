@@ -15,7 +15,8 @@
 }
 
 .Track-action:hover {
-  color: rgba(265, 265, 265, .5);
+  /* background-color: #14413F; */
+  color: #14413F;
 }
 
 .Track-information {
