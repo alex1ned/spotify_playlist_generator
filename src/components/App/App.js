@@ -66,6 +66,8 @@ class App extends React.Component {
 
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
+    this.updatePlaylistName = this.updatePlaylistName.bind(this);
+    this.savePlaylist = this.savePlaylist.bind(this);
   }
 
   //Remember find function (very useful)
@@ -90,6 +92,20 @@ class App extends React.Component {
     this.setState({playlistTracks: currentPlaylist});
   }
 
+  updatePlaylistName(name)
+  {
+    this.setState({playlistName: name});
+  }
+
+  savePlaylist()
+  {
+    //Create new array using map that extracts the uri for each
+    //track in the playlistTracks array
+    const trackURIs = this.state.playlistTracks.map(track => {
+      return track.uri;
+    });
+  }
+
   render()
   {
     return (
@@ -108,6 +124,8 @@ class App extends React.Component {
               playlistName={this.state.playlistName}
               playlistTracks={this.state.playlistTracks}
               onRemove={this.removeTrack}
+              onNameChange={this.updatePlaylistName}
+              onSave={this.savePlaylist}
             />
 
           </div>
