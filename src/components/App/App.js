@@ -5,52 +5,53 @@ import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import PlayList from '../PlayList/PlayList';
 
+import Spotify from '../../util/Spotify';
 
 // ---------------- Delete later (this is the searchResults Tracklist hardplugged)
-const result1 = {
-  name: 'Name1',
-  artist: 'Artist1',
-  album: 'Album1',
-  id: 1
-};
-
-const result2 = {
-  name: 'Name2',
-  artist: 'Artist2',
-  album: 'Album2',
-  id: 2
-};
-
-const result3 = {
-  name: 'Name3',
-  artist: 'Artist3',
-  album: 'Album3',
-  id: 3
-};
-
-const result4 = {
-  name: 'Name4',
-  artist: 'Artist4',
-  album: 'Album4',
-  id: 4
-};
-
-const result5 = {
-  name: 'Name5',
-  artist: 'Artist5',
-  album: 'Album5',
-  id: 5
-};
-
-const result6 = {
-  name: 'Name6',
-  artist: 'Artist6',
-  album: 'Album6',
-  id: 6
-};
-
-const arrayResults = [result1, result2, result3];
-const arrayList = [result4, result5, result6];
+// const result1 = {
+//   name: 'Name1',
+//   artist: 'Artist1',
+//   album: 'Album1',
+//   id: 1
+// };
+//
+// const result2 = {
+//   name: 'Name2',
+//   artist: 'Artist2',
+//   album: 'Album2',
+//   id: 2
+// };
+//
+// const result3 = {
+//   name: 'Name3',
+//   artist: 'Artist3',
+//   album: 'Album3',
+//   id: 3
+// };
+//
+// const result4 = {
+//   name: 'Name4',
+//   artist: 'Artist4',
+//   album: 'Album4',
+//   id: 4
+// };
+//
+// const result5 = {
+//   name: 'Name5',
+//   artist: 'Artist5',
+//   album: 'Album5',
+//   id: 5
+// };
+//
+// const result6 = {
+//   name: 'Name6',
+//   artist: 'Artist6',
+//   album: 'Album6',
+//   id: 6
+// };
+//
+// const arrayResults = [result1, result2, result3];
+// const arrayList = [result4, result5, result6];
 // ---------------- Delete later
 
 
@@ -59,9 +60,9 @@ class App extends React.Component {
   {
     super(props);
     this.state = {
-      searchResults: arrayResults,
+      searchResults: [],
       playlistName: 'A Name',
-      playlistTracks: arrayList
+      playlistTracks: []
     };
 
     this.addTrack = this.addTrack.bind(this);
@@ -99,18 +100,34 @@ class App extends React.Component {
     this.setState({playlistName: name});
   }
 
+  //Important caveat here (given that we receive a promis we then
+  //need to update the state based on the promise once it was resolved)
   savePlaylist()
   {
     //Create new array using map that extracts the uri for each
     //track in the playlistTracks array
-    const trackURIs = this.state.playlistTracks.map(track => {
+    const trackUris = this.state.playlistTracks.map(track => {
       return track.uri;
+    });
+
+    Spotify.savePlaylist(this.state.playlistName, trackUris)
+    .then( () => {
+      this.setState(
+        {
+          playlistTracks: [],
+          playlistName: 'New Playlist'
+        })
     });
   }
 
+  //Important caveat here (given that we receive a promis we then
+  //need to update the state based on the promise once it was resolved)
   search(term)
   {
-    console.log(term);
+    Spotify.search(term)
+    .then( (searchResults) => {
+      this.setState({searchResults: searchResults})
+    });
   }
 
   render()
