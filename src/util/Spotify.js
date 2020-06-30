@@ -2,7 +2,8 @@
 const clientId = 'ade2e3e48af74f768359d3f6390b18f0';
 
 // Have to add this to your accepted Spotify redirect URIs on the Spotify API.
-const redirectUri = 'http://localhost:3000/';
+const redirectUri = 'http://xant-design.com/';
+// const redirectUri = 'http://localhost:3000/';
 
 
 //--------------------------------------------------
@@ -32,7 +33,7 @@ const Spotify = {
         //using regex
       const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/);
 
-      if (accessToken && expiresInMatch)
+      if (accessTokenMatch && expiresInMatch)
       {
         //Set the access token to index 1 (i.e. it is the Group 1 of the regex
         //thus it does not include the phrase 'access_token=')
@@ -40,11 +41,11 @@ const Spotify = {
 
         //Create exirationIn variable similar to above BUT need to wrap
         //JS method Number() around it to parse it as a number
-        const expirationIn = Number(expiresInMatch[1]);
+        const expiresIn = Number(expiresInMatch[1]);
 
         //Clear the parameters from the URL, so the app doesn’t try grabbing
         //the access token after it has expired (a bit unclear)
-        window.setTimeout( () => accessToken = '', expirationIn * 1000);
+        window.setTimeout(() => accessToken = '', expiresIn * 1000);
         window.history.pushState('Access Token', null, '/');
         return accessToken;
       }
@@ -56,7 +57,6 @@ const Spotify = {
         const accessUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}`;
         //using the below actually redirect the browser
         window.location = accessUrl;
-
       }
     }
   },
@@ -115,7 +115,7 @@ const Spotify = {
       const accessToken = Spotify.getAccessToken();
       const endPoint = 'https://api.spotify.com/v1/me';
       const authorizationHeader = {
-        headers: {Authorization: `Bearer ${accessToken}`}
+        Authorization: `Bearer ${accessToken}`
       };
       let userId;
 
